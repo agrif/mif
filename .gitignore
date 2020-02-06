@@ -1,1 +1,6 @@
 __pycache__
+
+/.eggs
+/build
+/dist
+/mif.egg-info
