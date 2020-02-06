@@ -1,0 +1,37 @@
+// https://www.intel.com/content/www/us/en/programmable/quartushelp/13.0/mergedProjects/reference/glossary/def_mif.htm
+
+// ignore whitespace and comments
+COMMENT : "%" /[^%]*/ "%"
+        | "--" /.*/
+
+%import common.WS
+%ignore WS
+%ignore COMMENT
+
+_CONTENT.5 : "CONTENT"
+_BEGIN.5 : "BEGIN"
+_END.5 : "END"
+_SEMICOLON.5 : ";"
+_COLON.5 : ":"
+_EQUALS.5 : "="
+_DOTS.5 : ".."
+_LBRACKET.5 : "["
+_RBRACKET.5 : "]"
+
+VALUE : /[-+_0-9a-zA-Z]+/
+
+value : VALUE
+
+// recursive to incrementally build dict, rather than huge list
+file : [statement file]
+
+statement : _CONTENT _BEGIN datablock _END _SEMICOLON -> content
+          | value _EQUALS value _SEMICOLON -> meta
+
+// we do sort of want a list here, because order matters
+datablock : [data data*]
+
+data : address _COLON value+ _SEMICOLON
+
+address : _LBRACKET value _DOTS value _RBRACKET -> addressrange
+        | value -> address
