@@ -32,14 +32,20 @@ setup(
         'Programming Language :: Python :: 3',
     ],
 
-    setup_requires=['setuptools_git >= 0.3', 'better-setuptools-git-version >= 1.0'],
+    setup_requires=[
+        'setuptools_git >= 0.3',
+        'better-setuptools-git-version >= 1.0',
+    ],
     version_config={
         'version_format': '{tag}.dev{sha}',
     },
 
     packages=find_packages(exclude=['tests', 'tests.*']),
-    install_requires=['numpy', 'lark-parser'],
-    python_requires='>=3.3',
+    install_requires=[
+        'numpy >= 1.17.0',
+        'lark-parser >= 0.8.0',
+    ],
+    python_requires='>=3.5',
     include_package_data=True,
     test_suite='tests',
 )
