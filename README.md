@@ -1,6 +1,9 @@
 mif
 ---
 
+[![PyPI](https://img.shields.io/pypi/v/mif)](https://pypi.org/project/mif/)
+[![Travis CI](https://img.shields.io/travis/com/agrif/mif/master)](https://travis-ci.com/agrif/mif)
+
 `mif` is a Python module to read and write [Memory Initialization
 Files](https://www.intel.com/content/www/us/en/programmable/quartushelp/13.0/mergedProjects/reference/glossary/def_mif.htm),
 used by Quartus to interact with memory blocks on Intel FPGAs. They
