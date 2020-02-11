@@ -32,3 +32,20 @@ class TestLoadDump(unittest.TestCase):
                 s = mif.dumps(mem, address_radix=a, data_radix=b)
                 newmem = mif.loads(s)
                 self.assertEqual(memlist, [list(m) for m in newmem])
+
+class TestLoadDumpWide(unittest.TestCase):
+    def test_parse(self):
+        with load_data('example-wide.mif') as f:
+            mem = mif.load(f)
+        expected = list(int(i) for i in reversed('1000000100111111001000000001000000001000000001000000001000000001000100001111100011111100111111101111111111111111000000000000000011110000000010000000010000000010000000010000000100000000000000001000000100111111001000000001000000001000000001000000001000000001'))
+        self.assertEqual(list(mem[0]), expected)
+
+    def test_round_trip(self):
+        with load_data('example-wide.mif') as f:
+            mem = mif.load(f)
+        memlist = [list(m) for m in mem]
+        for a in RADIXES:
+            for b in RADIXES:
+                s = mif.dumps(mem, address_radix=a, data_radix=b)
+                newmem = mif.loads(s)
+                self.assertEqual(memlist, [list(m) for m in newmem])

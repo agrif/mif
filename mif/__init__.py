@@ -167,7 +167,7 @@ class Dumper:
             val = 0
             for i in reversed(valbytes):
                 val = val << 8
-                val += i
+                val += int(i) # numpy types infect, so exercise clean math
             fp.write('\t')
             fp.write(self._format_int(address_radix, addr, maxval=mem.shape[0]))
             fp.write('  :   ')
