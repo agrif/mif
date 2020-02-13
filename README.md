@@ -3,8 +3,9 @@ mif
 
 [![PyPI](https://img.shields.io/pypi/v/mif)](https://pypi.org/project/mif/)
 [![Travis CI](https://img.shields.io/travis/com/agrif/mif/master)](https://travis-ci.com/agrif/mif)
-[![Read the Docs](https://img.shields.io/readthedocs/mif/latest)](https://mif.readthedocs.io/en/latest/)
+[![Read the Docs](https://img.shields.io/readthedocs/mif/latest)][docs]
 
+ [docs]: https://mif.readthedocs.io/en/latest/
 
 `mif` is a Python module to read and write [Memory Initialization
 Files][mif], used by Quartus to interact with memory blocks on Intel
@@ -42,16 +43,4 @@ at address `0x12`:
 mem[0x12][0]
 ```
 
-Of course, unpacked bits are sometimes convenient, but very memory ineffecient. To instead load packed bytes (still in little-endian order):
-
-```python
-with open('memory.mif') as f:
-    width, mem = mif.load(f, packed=True)
-
-print(mif.dumps(mem, width=width))
-```
-
-Note that `load` now returns an extra `width` value, since there is
-otherwise no way to know the exact width of the returned memory if it
-is not divisible by 8. This can also be provided to `dump` to force an
-output width; normally, it is inferred.
+For more detailed information, please [read the documentation][docs].

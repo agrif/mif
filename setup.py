@@ -20,6 +20,7 @@ setup(
 
     project_urls={
         'Source': 'https://github.com/agrif/mif/',
+        'Documentation': 'https://mif.readthedocs.io/en/latest/',
     },
 
     keywords='memory mif quartus',
