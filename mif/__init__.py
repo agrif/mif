@@ -146,9 +146,36 @@ class Loader:
             raise MIFError('file does not have required {} key'.format(key)) from None
 
 def load(fp, packed=False):
+    """Load MIF data from a file, and return it. If you want to load data
+    directly from a string, not a file, see `mif.loads`.
+
+    #### Arguments
+
+    * **fp** - The file-like object to read from.
+
+    * **packed** - If True, return an array of packed bytes, rather
+       than unpacked bits.
+
+    #### Returns
+
+    If **packed** is False, this function returns the data as unpacked
+    bits in a 2D numpy array. If **packed** is True, this function
+    returns a tuple `(width, data)`, where `width` is the width of the
+    words stored in the file in bits, and `data` is the loaded data in
+    a packed 2D numpy array of bytes.
+
+    In either case, the first dimension of the data array is the
+    address space, and the second dimension is the data in
+    little-endian order.
+
+    """
     return loads(fp.read(), packed=packed)
 
 def loads(s, packed=False):
+    """Load MIF data from a string. See `mif.load` for a description of
+    arguments and return value.
+
+    """
     l = Loader(s)
     if packed:
         return (l.width, l.data)
@@ -207,6 +234,34 @@ class Dumper:
         return s
 
 def dump(mem, fp, packed=False, width=None, address_radix='HEX', data_radix='BIN'):
+    """Save MIF data to a file. If you instead want to store the data in a
+    string, see `mif.dumps`.
+
+    #### Arguments
+
+    * **mem** - The memory to dump, either as a packed array of bytes or
+       an unpacked bit array. In either case, the first dimension is
+       the address space, and the second is the data in little-endian
+       order. This must be a 2D numpy array with `dtype=numpy.uint8`.
+
+    * **fp** - The file-like object to dump into.
+
+    * **packed** - If True, then mem must be a packed array of
+       bytes. If False, it must be an unpacked array of bits. If True,
+       you may also be interested in setting the **width** parameter.
+
+    * **width** - Override the default output width. Normally the
+       width is inferred from **mem**, but you can set this to
+       override it, which is especially useful with packed byte
+       arrays.
+
+    * **address_radix** - The address format to use. Can be one of:
+      `BIN`, `HEX`, `OCT`, `DEC`, `UNS`.
+
+    * **data_radix** - The address format to use. Can be one of: `BIN`,
+      `HEX`, `OCT`, `DEC`, `UNS`.
+
+    """
     if not packed:
         if width is None:
             _, width = mem.shape
@@ -216,6 +271,9 @@ def dump(mem, fp, packed=False, width=None, address_radix='HEX', data_radix='BIN
     Dumper(mem, fp, width, address_radix, data_radix)
 
 def dumps(mem, packed=False, width=None, address_radix='HEX', data_radix='BIN'):
+    """Save MIF data to a string, and return it. See `mif.dump` for a
+    description of arguments.
+    """
     with io.StringIO() as fp:
         dump(mem, fp, packed=packed, width=width, address_radix=address_radix, data_radix=data_radix)
         return fp.getvalue()
