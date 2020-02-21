@@ -1,6 +1,6 @@
 import sys
+
 import mif
-import numpy
 
 for fname in sys.argv[1:]:
     with open(fname) as f:

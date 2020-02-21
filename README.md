@@ -19,7 +19,7 @@ arbitrary memory widths as first-class citizens.
 
 Install via `pip`:
 
-```python
+```bash
 pip install mif
 ```
 

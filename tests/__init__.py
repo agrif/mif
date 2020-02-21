@@ -1,16 +1,18 @@
-import unittest
-
 import io
 import os.path
-import pkg_resources
+import unittest
 
 import mif
 
+import pkg_resources
+
 RADIXES = ['BIN', 'HEX', 'OCT', 'DEC', 'UNS']
+
 
 def load_data(n):
     p = os.path.join('data', n)
     return io.TextIOWrapper(pkg_resources.resource_stream(__name__, p))
+
 
 class TestLoadDump(unittest.TestCase):
     def test_parse(self):
@@ -33,11 +35,18 @@ class TestLoadDump(unittest.TestCase):
                 newmem = mif.loads(s)
                 self.assertEqual(memlist, [list(m) for m in newmem])
 
+
 class TestLoadDumpWide(unittest.TestCase):
     def test_parse(self):
         with load_data('example-wide.mif') as f:
             mem = mif.load(f)
-        expected = list(int(i) for i in reversed('1000000100111111001000000001000000001000000001000000001000000001000100001111100011111100111111101111111111111111000000000000000011110000000010000000010000000010000000010000000100000000000000001000000100111111001000000001000000001000000001000000001000000001'))
+        expected_blob = [
+            '1000000100111111001000000001000000001000000001000000001000000001',
+            '0001000011111000111111001111111011111111111111110000000000000000',
+            '1111000000001000000001000000001000000001000000010000000000000000',
+            '1000000100111111001000000001000000001000000001000000001000000001',
+        ]
+        expected = list(int(i) for i in reversed(''.join(expected_blob)))
         self.assertEqual(list(mem[0]), expected)
 
     def test_round_trip(self):

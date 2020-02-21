@@ -1,6 +1,8 @@
 __pycache__
 
 /.eggs
+/.tox
 /build
 /dist
+/site
 /mif.egg-info
