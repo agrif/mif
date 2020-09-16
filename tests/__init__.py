@@ -14,6 +14,23 @@ def load_data(n):
     return io.TextIOWrapper(pkg_resources.resource_stream(__name__, p))
 
 
+class TestPacked(unittest.TestCase):
+    def test_round_trip(self):
+        import numpy as np
+        dat = np.ndarray([32, 4], dtype=np.ubyte)
+        for i in range(32):
+            valb = int.to_bytes((1 << i), length=4, byteorder="little")
+            dat[i] = np.frombuffer(valb, dtype=np.ubyte)
+
+        mifstr = mif.dumps(dat, packed=True, data_radix="HEX")
+        _, dat_out = mif.loads(mifstr, packed=True)
+
+        for i, v in enumerate(dat_out):
+            exp = int.from_bytes(dat[i], byteorder="little")
+            act = int.from_bytes(v, byteorder="little")
+            self.assertEqual(exp, act)
+
+
 class TestLoadDump(unittest.TestCase):
     def test_parse(self):
         with load_data('example.mif') as f:
