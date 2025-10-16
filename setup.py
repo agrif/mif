@@ -52,6 +52,7 @@ setup(
     install_requires=[
         'numpy >= 1.17.0',
         'lark-parser >= 0.8.0',
+        'importlib-resources >= 6.5.2'
     ],
     python_requires='>=3.5',
     include_package_data=True,

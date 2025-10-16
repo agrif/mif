@@ -1,11 +1,9 @@
 import io
 import math
 
+import importlib_resources
 import lark
-
 import numpy
-
-import pkg_resources
 
 
 class MIFError(Exception):
@@ -52,7 +50,8 @@ class ParseTransformer(lark.Transformer):
 
 class Loader:
     # find and load our grammar
-    with pkg_resources.resource_stream(__name__, 'grammar.bnf') as f:
+    path = importlib_resources.files(__name__) / 'grammar.bnf'
+    with open(path, 'rb') as f:
         parser = lark.Lark(
             io.TextIOWrapper(f),
             start='file',
