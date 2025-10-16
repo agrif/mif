@@ -2,7 +2,7 @@ mif
 ---
 
 [![PyPI](https://img.shields.io/pypi/v/mif)](https://pypi.org/project/mif/)
-[![Travis CI](https://img.shields.io/travis/com/agrif/mif/master)](https://travis-ci.com/agrif/mif)
+[![GitHub Actions](https://github.com/agrif/mif/actions/workflows/test.yaml/badge.svg)](https://github.com/agrif/mif/actions/workflows/test.yaml)
 [![Read the Docs](https://img.shields.io/readthedocs/mif/latest)][docs]
 
  [docs]: https://mif.readthedocs.io/en/latest/
