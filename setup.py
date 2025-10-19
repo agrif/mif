@@ -45,7 +45,8 @@ setup(
         'docs': ['mkdocs >= 1.2, < 1.3', 'mkautodoc >= 0.2.0'],
     },
     version_config={
-        'version_format': '{tag}.dev{sha}',
+        'template': '{tag}',
+        'starting_version': '0.1',
     },
 
     packages=find_packages(exclude=['tests', 'tests.*']),
