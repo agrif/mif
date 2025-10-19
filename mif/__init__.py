@@ -50,10 +50,10 @@ class ParseTransformer(lark.Transformer):
 
 class Loader:
     # find and load our grammar
-    path = importlib_resources.files(__name__) / 'grammar.bnf'
-    with open(path, 'rb') as f:
+    _grammar_path = importlib_resources.files(__name__) / 'grammar.bnf'
+    with _grammar_path.open() as f:
         parser = lark.Lark(
-            io.TextIOWrapper(f),
+            f,
             start='file',
             parser='lalr',
             maybe_placeholders=False,
