@@ -7,26 +7,6 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          # - name: Test
-          #   runner: ubuntu-latest
-          #   python: '3.5'
-          #   toxenv: py35
-
-          # - name: Test
-          #   runner: ubuntu-latest
-          #   python: '3.6'
-          #   toxenv: py36
-
-          - name: Test
-            runner: ubuntu-22.04
-            python: '3.7'
-            toxenv: py37
-
-          - name: Test
-            runner: ubuntu-22.04
-            python: '3.8'
-            toxenv: py38
-
           - name: Test
             runner: ubuntu-24.04
             python: '3.9'
