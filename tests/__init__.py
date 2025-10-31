@@ -1,6 +1,5 @@
+import importlib.resources
 import unittest
-
-import importlib_resources
 
 import mif
 
@@ -9,7 +8,7 @@ RADIXES = ['BIN', 'HEX', 'OCT', 'DEC', 'UNS']
 
 
 def get_data_path(n):
-    return importlib_resources.files(__name__) / 'data' / n
+    return importlib.resources.files(__name__) / 'data' / n
 
 
 class TestPacked(unittest.TestCase):
