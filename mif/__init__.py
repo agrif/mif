@@ -1,7 +1,7 @@
+import importlib.resources
 import io
 import math
 
-import importlib_resources
 
 import lark
 
@@ -52,7 +52,7 @@ class ParseTransformer(lark.Transformer):
 
 class Loader:
     # find and load our grammar
-    _grammar_path = importlib_resources.files(__name__) / 'grammar.bnf'
+    _grammar_path = importlib.resources.files(__name__) / 'grammar.bnf'
     with _grammar_path.open() as f:
         parser = lark.Lark(
             f,
